@@ -27,11 +27,16 @@
               <div class="justify-center">
                 {#each number as num}
                   <div class="bg-indigo-500 h-16 m-3">
-                    <div class="p-2">
-                      <div class="Rectangle72 w-12 h-12 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
+                    <div class="p-2 flex">
+                      <div class="Rectangle72 w-12 h-12 mr-2 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
                         <div class="p-1">{num}</div>
                       </div>
+                      <div class="Rectangle72 w-12 h-12 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
+                        <div class="p-1">;)</div>
+                      </div>
+                      
                     </div>
+                    
                   </div>
                 {/each}
               </div>
