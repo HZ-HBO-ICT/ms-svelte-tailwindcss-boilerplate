@@ -1,6 +1,4 @@
 <script>
-   // @ts-ignore
-   import NavBar from "$lib/components/NavBar.svelte";
    import { onMount } from "svelte";
 
   let showSignup = true;
@@ -22,7 +20,9 @@
   </svelte:head>
   
   <header>
-    <NavBar />
+    <nav class=" bg-indigo-800 shadow p-4 sticky top-0 w-full z-10">
+        <div class="w-[187px] h-[57px] text-white text-5xl font-extrabold font-['Inter']">Anxietr</div>
+    </nav>
   </header>
   <main>
     <div class="welcome-message h-[90px] bg-white rounded-[10px] shadow flex items-center justify-center">
@@ -48,7 +48,7 @@
                     <input class="w-[389px] h-[65px] bg-slate-100 rounded-[10px] shadow border-2 border-slate-100" type="text" placeholder="Password">
                     <input class="w-[389px] h-[65px] bg-slate-100 rounded-[10px] shadow border-2 border-slate-100" type="text" placeholder="Confirm Password">
                     <button class="w-[389px] h-[65px] bg-indigo-800 rounded-[10px] shadow text-white text-2xl font-bold font-['Inter']">Sign up</button>
-                  <p>Already have an account? <a  on:click={toggleView}>Switch to Login</a></p>
+                  <p>Already have an account? <a href="#" on:click={toggleView}>Switch to Login</a></p>
                 </div>
               {:else}
                 <!-- Login Form -->
@@ -57,7 +57,7 @@
                     <input class="w-[389px] h-[65px] bg-slate-100 rounded-[10px] shadow border-2 border-slate-100" type="text" placeholder="Username">
                     <input class="w-[389px] h-[65px] bg-slate-100 rounded-[10px] shadow border-2 border-slate-100" type="text" placeholder="Password">
                     <button class="w-[389px] h-[65px] bg-indigo-800 rounded-[10px] shadow text-white text-2xl font-bold font-['Inter']">Log in</button>
-                  <p>Don't have an account? <a on:click={toggleView}>Switch to Signup</a></p>
+                  <p>Don't have an account? <a href="#" on:click={toggleView}>Switch to Signup</a></p>
                 </div>
               {/if}
             </div>
