@@ -4,8 +4,8 @@
       { day: 2, challengeNumber: [4] , challenge: "tell your match a joke"},
       { day: 3, challengeNumber: [5] , challenge: "Tell yourself you are beautifull in the mirror"},
       { day: 4, challengeNumber: [6] , challenge: "hang out with someone"},
-      { day: 5, challengeNumber: [7] , challenge: "take some drugs"},
-      { day: 6, challengeNumber: [8] , challenge: "smoke a joint"},
+      { day: 5, challengeNumber: [7] , challenge: "get some rest"},
+      { day: 6, challengeNumber: [8] , challenge: "do a flip"},
       { day: 7, challengeNumber: [9] , challenge: "take a yoga session"},
     ];
   </script>
@@ -18,12 +18,25 @@
     </div>
     <div class="content">
       <div class="w-full h-full flex items-center justify-center mt-8">
-        <div class="w-4/5 max-w-5xl h-full bg-white">
+        <div class="w-4/5 max-w-5xl h-full bg-white items-center">
+          <div class="text-black text-5xl font-bold font-inter text-center">Challenges</div>
           {#each dailyChallengeData as { day, challengeNumber, challenge }}
             <div class="m-5 bg-zinc-300 justify-center mb-10 pb-1 text-white">
-              <div class="w-full h-5 bg-indigo-800">
+            <div class="w-full flex bg-indigo-800">
+              <div class=" pl-3 h-5 text-sm font-bold">
                 Day {day}
               </div>
+              <div class="flex justify-end">
+                <div class="pl-3 h-5 text-sm font-bold flex">
+                You
+              </div>
+              <div class="pl-3 h-5 text-sm font-bold right-3 flex ">
+                Stranger
+              </div>
+              </div>
+              
+            </div>
+              
               <div class="justify-center">
                 {#each challengeNumber as num}
                   <div class="bg-indigo-500 h-16 m-3">
