@@ -1,8 +1,35 @@
 <script>
     import { goto } from "$app/navigation";
+    import { onMount } from "svelte";
+    onMount(async () => {});
 
-    function submitAndRedirect() {
-        goto("/journal");
+    let jounalEntryTitle;
+    let journalEntryContent;
+
+    function createJournalEntry() {
+        const url = "http://localhost:3010/journalentries";
+
+        const journalEntryData = {
+            Title: jounalEntryTitle,
+            Content: journalEntryContent,
+        };
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            mode: "cors",
+            body: JSON.stringify(journalEntryData),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("Success:", data);
+                goto("/journal");
+            })
+            .catch((error) => {
+                console.error("Error:", error);
+            });
     }
 </script>
 
@@ -34,20 +61,39 @@
                     </h2>
                     <form id="entryForm">
                         <div class="mb-4">
-                            <label for="date" class="block text-2xl font-bold text-[#3730A3]">Date</label>
-                            <input type="date" id="date" name="date" required class="mt-1 p-2 block w-full border rounded-md"/>
-                        </div>
-                        <div class="mb-4">
-                            <label for="title" class="block text-2xl font-bold text-[#3730A3]">Title</label>
-                            <input type="text" id="title" name="title" required class="mt-1 p-2 block w-full border rounded-md"/>
+                            <label
+                                for="title"
+                                class="block text-2xl font-bold text-[#3730A3]"
+                                >Title</label
+                            >
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                required
+                                bind:value={jounalEntryTitle}
+                                class="mt-1 p-2 block w-full border rounded-md"
+                            />
                         </div>
                         <div class="mb-6">
-                            <label for="content" class="block text-2xl font-bold text-[#3730A3]">Content</label>
-                            <textarea id="content" name="content" required class="mt-1 p-2 block w-full border rounded-md"/>
-
+                            <label
+                                for="content"
+                                class="block text-2xl font-bold text-[#3730A3]"
+                                >Content</label
+                            >
+                            <textarea
+                                id="content"
+                                name="content"
+                                required
+                                bind:value={journalEntryContent}
+                                class="mt-1 p-2 block w-full border rounded-md"
+                            />
                         </div>
 
-                        <button type="submit" on:click={submitAndRedirect} class="absolute bottom-4 right-4 bg-[#3730A3] text-white px-4 py-2 rounded-md text-2xl font-bold"
+                        <button
+                            type="submit"
+                            on:click={createJournalEntry}
+                            class="absolute bottom-4 right-4 bg-[#3730A3] text-white px-4 py-2 rounded-md text-2xl font-bold"
                             >Submit</button
                         >
                     </form>
