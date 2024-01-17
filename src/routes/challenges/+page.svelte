@@ -103,7 +103,7 @@
                         <div class="p-1">;</div>
                       </div>
                     </div>
-                    <div class="w-full text-black max-h-16 m-1  bg-white bg-opacity-50 rounded-2xl">
+                    <div class="w-full text-black max-h-16 m-1 p-0.5 bg-white bg-opacity-50 rounded-2xl">
                       {challenge}
                     </div>
                     <div class="">
