@@ -112,7 +112,7 @@
   <div
     class="welcome-message h-[90px] bg-white rounded-[10px] shadow flex items-center justify-center"
   >
-    <div class="text-indigo-800 text-5xl font-extrabold font-['Inter']">
+    <div class="text-indigo-800 text-5xl font-extrabold ">
       Welcome to Anxietr, your cozy corner.
     </div>
   </div>
@@ -142,7 +142,7 @@
               class="signup w-[474px] h-[600px] bg-white rounded-[10px] shadow border border-slate-100 grid place-items-center"
             >
               <div
-                class="text-center text-indigo-800 text-5xl font-semibold font-['Inter']"
+                class="text-center text-indigo-800 text-5xl font-bold "
               >
                 Sign up
               </div>
@@ -176,7 +176,7 @@
               />
               <button
                 type="submit"
-                class="w-[389px] h-[65px] bg-indigo-800 rounded-[10px] shadow text-white text-2xl font-bold font-['Inter']"
+                class="w-[389px] h-[65px] bg-indigo-800 rounded-[10px] shadow text-white text-2xl font-bold "
                 >Sign up</button
               >
               <p>
@@ -192,7 +192,7 @@
               class="login w-[474px] h-[600px] bg-white rounded-[10px] shadow border border-slate-100 grid place-items-center"
             >
               <div
-                class="text-center text-indigo-800 text-5xl font-semibold font-['Inter']"
+                class="text-center text-indigo-800 text-5xl font-bold "
               >
                 Log In
               </div>
@@ -210,7 +210,7 @@
               />
               <button
                 type="submit"
-                class="w-[389px] h-[65px] bg-indigo-800 rounded-[10px] shadow text-white text-2xl font-bold font-['Inter']"
+                class="w-[389px] h-[65px] bg-indigo-800 rounded-[10px] shadow text-white text-2xl font-bold "
                 >Log in</button
               >
               <p>
