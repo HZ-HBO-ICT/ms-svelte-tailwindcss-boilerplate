@@ -45,7 +45,7 @@
                   </div>
                 </div>
               </div>
-              {#each apiChallengeData.slice(0, 3) as { id, challenge }}
+              {#each apiChallengeData.slice(0, 3) as { id, challenge, icon }}
               <div class="justify-center">
                 <div class="bg-indigo-500 h-16 m-3">
                   <div class="p-2 flex w-full">
@@ -54,7 +54,7 @@
                         <div class="p-1">{id}</div>
                       </div>
                       <div class="Rectangle72 w-12 h-12 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
-                        <div class="p-1">;</div>
+                        <div class="p-1">{icon}</div>
                       </div>
                     </div>
                     <div class="w-full text-black m-1 p-1 bg-white bg-opacity-50 rounded-2xl">
@@ -77,7 +77,7 @@
             </div>
           
 
-          {#each apiChallengeData.slice(3) as { id, challenge }}
+          {#each apiChallengeData.slice(3, 7) as { id, challenge, icon }}
             <div class="m-5 bg-zinc-300 justify-center mb-10 pb-1 text-white">
               <div class="w-full flex bg-indigo-800">
                 <div class="pl-3 h-5 text-sm font-bold">
@@ -100,7 +100,7 @@
                         <div class="p-1">{id}</div>
                       </div>
                       <div class="Rectangle72 w-12 h-12 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
-                        <div class="p-1">;</div>
+                        <div class="p-1">{icon}</div>
                       </div>
                     </div>
                     <div class="w-full text-black max-h-16 m-1 p-0.5 bg-white bg-opacity-50 rounded-2xl">
