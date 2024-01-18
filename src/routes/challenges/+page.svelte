@@ -1,24 +1,55 @@
 <script>
   import { onMount } from "svelte";
 
-  const apiUrl = 'http://localhost:3001/getChallenges'
-  let apiChallengeData = []
+  const apiUrl = 'http://localhost:3001/getChallenges';
+  const completionApiUrl = 'http://localhost:3001/completeChallenge';
+  let apiChallengeData = [];
+  let user_id = 1111;
 
   onMount(async () => {
-  try {
-    const response = await fetch(apiUrl);
+    try {
+      const response = await fetch(apiUrl);
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      apiChallengeData = await response.json();
+      console.log(apiChallengeData);
+    } catch (error) {
+      console.error('Error:', error);
     }
+  });
 
-    apiChallengeData = await response.json();
-    console.log(apiChallengeData); 
-  } catch (error) {
-    console.error('Error:', error);
-  }
-});
-  </script>
+  const completeChallenge = async (userId, challengeId) => {
+    try {
+      // Ensure userId is defined before proceeding
+      if (!userId) {
+        console.error('User ID is undefined.');
+        return;
+      }
+
+      console.log(user_id, challengeId);
+      const response = await fetch(completionApiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          user_id,
+          challengeId,
+          completed: true,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to complete challenge');
+      }
+    } catch (error) {
+      console.error('Error completing challenge:', error);
+    }
+  };
+</script>
   
   <body class="bg-slate-100 w-full h-full items-center">
     <div class="navbar">
@@ -62,9 +93,9 @@
                     </div>
                     <div class="">
                       <div class="flex float-right">
-                        <div class="Rectangle72 w-12 h-12 mr-2 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
-                          <div class="p-1"></div>
-                        </div>
+                        <button on:click={() => completeChallenge(user_id, id)}>
+                          <div class="Rectangle72 w-12 h-12 mr-2 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center"></div>
+                          </button>
                         <div class="Rectangle72 w-12 h-12 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
                           <div class="p-1"></div>
                         </div>
@@ -77,11 +108,11 @@
             </div>
           
 
-          {#each apiChallengeData.slice(3, 7) as { id, challenge, icon }}
+          {#each apiChallengeData.slice(3, 9) as { id, challenge, icon }}
             <div class="m-5 bg-zinc-300 justify-center mb-10 pb-1 text-white">
               <div class="w-full flex bg-indigo-800">
                 <div class="pl-3 h-5 text-sm font-bold">
-                  Day {id}
+                  Day {id-2}
                 </div>
                 <div class="flex justify-end">
                   <div class="pl-3 h-5 text-sm font-bold flex">
@@ -108,9 +139,9 @@
                     </div>
                     <div class="">
                       <div class="flex float-right">
-                        <div class="Rectangle72 w-12 h-12 mr-2 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
-                          <div class="p-1"></div>
-                        </div>
+                        <button on:click={() => completeChallenge(user_id, id)}>
+                          <div class="Rectangle72 w-12 h-12 mr-2 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center"></div>
+                          </button>
                         <div class="Rectangle72 w-12 h-12 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
                           <div class="p-1"></div>
                         </div>
