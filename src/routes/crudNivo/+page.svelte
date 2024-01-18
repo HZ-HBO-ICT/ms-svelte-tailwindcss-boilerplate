@@ -39,11 +39,11 @@
       </div>
       <form class="max-w-md mx-auto" on:submit={handleSubmit}>
         <div class="mb-4">
-          <label for="name" class="block text-gray-600">Name:</label>
+          <label for="name" class="block text-gray-600">Name*</label>
           <input type="text" id="name" bind:value={formData.name} class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" required>
         </div>
         <div class="mb-4">
-          <label for="age" class="block text-gray-600">Age:</label>
+          <label for="age" class="block text-gray-600">Age*</label>
           <input type="text" id="age" bind:value={formData.age} class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500" required>
         </div>
         <div class="mb-4">
