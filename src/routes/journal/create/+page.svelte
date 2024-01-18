@@ -1,5 +1,6 @@
 <script>
     import { goto } from "$app/navigation";
+    import NavBar from "$lib/components/NavBar.svelte";
     import { onMount } from "svelte";
     onMount(async () => {});
 
@@ -39,13 +40,7 @@
 </svelte:head>
 
 <header>
-    <nav class="bg-[#3730A3] p-4 fixed top-0 w-full z-10">
-        <div
-            class="container pt-4 mx-auto flex justify-between items-center justify-self-center drop-shadow-xl justify-items-center"
-        >
-            <a href="/home" class="text-white text-6xl font-bold">Anxietr</a>
-        </div>
-    </nav>
+    <NavBar />
 </header>
 
 <body class="bg-gray-200">

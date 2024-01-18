@@ -1,4 +1,4 @@
-<script src="./app.js">
+    <script src="./app.js">
 </script>
 
 <head>
