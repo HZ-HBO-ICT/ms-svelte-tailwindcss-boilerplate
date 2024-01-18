@@ -4,4 +4,5 @@ import { json } from "@sveltejs/kit";
 
 export const userToken = writable("")
 export const userEmail = persisted('userEmail', "");
-export const userData = persisted('userData', "");
+let test = {};
+export const userData = persisted('userData', test);

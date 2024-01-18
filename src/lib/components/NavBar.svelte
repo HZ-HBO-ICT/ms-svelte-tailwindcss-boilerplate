@@ -4,13 +4,14 @@
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
     console.log($userEmail)
+    console.log( $userData.username);
     async function signOut() {
            
         const { error } = await supabase.auth.signOut();
         console.log("signed out")
         console.log($userEmail)
-         $userEmail ="";
-         $userData ="";
+             $userEmail = "signed out";
+         $userData ={};
          console.log($userEmail)
     }
    
@@ -62,7 +63,7 @@
                 <i
                     class="fa-solid fa-sun text-[#DFC2F2] text-2xl font-bold hover:text-white"
                 />
-                {#if $userEmail != ""}
+                {#if $userEmail != "signed out"}
                     <button on:click={signOut} class="def p-2 m-2">Log out</button>
                 {/if}
             </li>
