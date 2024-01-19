@@ -3,8 +3,12 @@
     import { userEmail,userData } from "../../stores.js";
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
-    console.log($userEmail)
-    console.log( $userData.username);
+  // @ts-ignore
+    console.log("Username - " +  $userData.username)
+    
+    console.log("User Email - " + $userEmail)
+    console.log($userData);
+ 
     async function signOut() {
            
         const { error } = await supabase.auth.signOut();
@@ -57,12 +61,12 @@
                 >
                     <i class="fas fa-user" /></a
                 >
-                <i
+                <!-- <i
                     class="fa-solid fa-moon text-[#DFC2F2] text-2xl font-bold hover:text-white"
                 />
                 <i
                     class="fa-solid fa-sun text-[#DFC2F2] text-2xl font-bold hover:text-white"
-                />
+                /> -->
                 {#if $userEmail != "signed out"}
                     <button on:click={signOut} class="def p-2 m-2">Log out</button>
                 {/if}
