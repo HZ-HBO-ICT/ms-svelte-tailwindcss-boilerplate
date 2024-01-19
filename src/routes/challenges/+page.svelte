@@ -139,7 +139,7 @@
                     </div>
                     <div class="">
                       <div class="flex float-right">
-                        <button on:click={() => completeChallenge(user_id, id)}>
+                        <button on:click={() => completeChallenge(userId, id)}>
                           <div class="Rectangle72 w-12 h-12 mr-2 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center"></div>
                           </button>
                         <div class="Rectangle72 w-12 h-12 bg-white rounded-2xl text-black text-3xl font-bold flex justify-center">
