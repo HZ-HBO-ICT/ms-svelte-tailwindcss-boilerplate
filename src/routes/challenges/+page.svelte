@@ -1,5 +1,6 @@
 <script>
-  import { onMount } from "svelte";
+  import NavBar from "$lib/components/NavBar.svelte";
+import { onMount } from "svelte";
 
   const apiUrl = 'http://localhost:3001/getChallenges';
   const completionApiUrl = 'http://localhost:3001/completeChallenge';
@@ -125,11 +126,7 @@ onMount(async () => {
 </script>
   
   <body class="bg-slate-100 w-full h-full items-center">
-    <div class="navbar">
-      <div class="w-full h-24 bg-indigo-800 shadow">
-        <div class="w-48 h-14 text-white text-5xl font-extrabold font-inter mx-auto">Anxietr</div>
-      </div>
-    </div>
+    <NavBar />
     <div class="content">
       <div class="w-full h-full flex items-center justify-center mt-8">
         <div class="w-4/5 max-w-5xl h-full bg-white items-center">
