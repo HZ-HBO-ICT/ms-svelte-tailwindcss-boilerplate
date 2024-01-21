@@ -5,7 +5,7 @@
     let displayedEntries = 3;
 
     async function getJournalEntries() {
-        const url = "http://localhost:3010/journalentries";
+        const url = "http://localhost:3001/entries";
 
         try {
             const response = await fetch(url, {
