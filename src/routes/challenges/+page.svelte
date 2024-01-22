@@ -4,9 +4,9 @@
   import { onMount } from "svelte";
 
   // API URLs and Variables
-  const apiUrl = 'http://localhost:3001/getChallenges';
-  const completionApiUrl = 'http://localhost:3001/completeChallenge';
-  const checkCompletionApiUrl = 'http://localhost:3006/checkChallengeCompletion';
+  const apiUrl = 'http://localhost:3001/challenges/';
+  const completionApiUrl = 'http://localhost:3001/challenges/completeChallenge';
+  const checkCompletionApiUrl = 'http://localhost:3001/challenges/checkChallenge/:userId/:challengeId';
   let apiChallengeData = [];
   let completedChallenges = {};
   let completedChallengesMatch = {};
