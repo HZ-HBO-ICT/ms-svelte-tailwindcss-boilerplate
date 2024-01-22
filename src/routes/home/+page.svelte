@@ -1,10 +1,11 @@
 <script>
   import { onMount } from "svelte";
   import { createClient } from "@supabase/supabase-js";
-  import { userEmail, userToken, userData } from "../stores.js";
+  import { userEmail, userToken, userData } from "../../stores.js";
   import NavBar from "$lib/components/NavBar.svelte";
-  import key from "../key.js";
-  import url from "../url.js";
+  import key from "../../key.js";
+  import url from "../../url.js";
+
 
   const supabase = createClient(url(), key());
 
@@ -15,7 +16,6 @@
 
   let password2;
 
- 
   async function signUpNewUser() {
     if (password == password2) {
       signOut();
@@ -28,13 +28,19 @@
           emailRedirectTo: "https://example.com/welcome",
         },
       });
-      if (data) userEmail.set(email);
+      if (data) {
+        userEmail.set(email);
+        userData.set({
+          username: username,
+          email: email,
+        });
+      }
       if (error == null) {
         const accData = {
           username: username,
           email: email,
         };
-        fetch("http://localhost:3001/postAcc", {
+        fetch("http://localhost:3001/acc/post", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -42,23 +48,10 @@
           },
           // mode: "cors", // This enables CORS
           body: JSON.stringify(accData),
-        })
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then((data) => {
-            console.log("Post request successful:", data);
-            // Handle the response data as needed
-          })
-          .catch((error) => {
-            console.error("Error making POST request:", error);
-            // Handle errors
-          });
+        });
       }
       console.log(error);
+      window.location.href = "/setupProfile";
     } else console.log("passwords not matching");
   }
   async function signOut() {
@@ -84,7 +77,7 @@
       // @ts-ignore
       userEmail.set(data.user.email);
 
-      await fetch("http://localhost:3001/getAccEmail/" + email)
+      await fetch("http://localhost:3001/acc/email/" + email)
         .then((response) => response.json())
         .then((data) => userData.set(data[0]));
       console.log($userData);
@@ -221,16 +214,16 @@
                   >
                 </p>
               </form>
-             
             {/if}
           {:else}
-          <div class=" def p-10 text-center text-indigo-800 text-5xl font-bold">
-                  You are already logged in!
-                </div>
-            {/if}
-          
-          
-             <!-- else content here -->
+            <div
+              class=" def p-10 text-center text-indigo-800 text-5xl font-bold"
+            >
+              You are already logged in!
+            </div>
+          {/if}
+
+          <!-- else content here -->
         </div>
       </div>
     </div>
@@ -238,7 +231,7 @@
 </main>
 
 <style>
-   .def {
+  .def {
     --tw-bg-opacity: 1;
     border-radius: 0.5rem /* 8px */;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity));
