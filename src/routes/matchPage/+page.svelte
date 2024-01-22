@@ -1,6 +1,65 @@
 <script>
   import NavBar from "$lib/components/NavBar.svelte";
   import { page } from "$app/stores";
+  import { onMount } from "svelte";
+  import { userEmail, userData, userMatch } from "../../stores.js";
+
+  let usersData = [];
+ let match2id
+  let matched = false;
+  // @ts-ignore
+  let match1 = $userData.username
+  let match2
+
+  async function getUsersData() {
+    await fetch("http://localhost:3001/acc/get")
+      .then((response) => response.json())
+      .then((data) => (usersData = data));
+      console.log(usersData);
+
+  }
+onMount(() => {
+  getUsersData();
+ 
+  console.log(usersData);
+});
+
+
+function match () {
+   match2id =getRandomInt(0, usersData.length-1);
+  if(usersData[match2id].username != match1  ){
+    match2 = usersData[match2id].username;
+  } else match();
+   console.log(match2);
+   matched = true;
+}
+
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function submitMatch () {
+$userMatch = match2;
+  let reqData = {
+    user1: match1,
+    user2: match2
+  };
+ fetch("http://localhost:3001/match/post", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // You may need to include additional headers depending on your API requirements
+          },
+          // mode: "cors", // This enables CORS
+          body: JSON.stringify(reqData),
+        });
+}
+ 
+
+
+
 </script>
 
 <svelte:head>
@@ -50,21 +109,25 @@
 </header>
 
 <!-- shadow-[0_8px_30px_rgb(0,0,0,0.12)] -->
-<div class=" h-full" style="background-color: #f1f4f9;  z-index: 2;">
+<div class=" h-screen" style="background-color: #f1f4f9;  z-index: 2;">
   <!-- top div -->
-  <div
+  <!-- <div
     class="top bg-white text-4xl text-center align-middle border-b-2 drop-shadow-sm shadow-blue-500/20 font-bold text-[#3730A3] grid place-items-center items-center justify-center"
     style="min-height:200px;"
   >
     <div class="grid place-items-center items-center justify-center">
       Congratulations! <br /> You've found a match!
     </div>
-  </div>
+  </div> -->
 
   <!-- bot div -->
   <div
     style="display: grid; grid-template-columns: 3.75fr 1.1fr; max-width: 73%; margin: 10px auto; "
   >
+  {#if !matched}
+ <div class="left def m-2 p-20 text-4xl text-center text-[#3730A3] font-bold grid" style="grid-template-rows: 60px 350px auto;">
+  Click the Roll button to get a match!
+  </div>  {:else}
     <div class="left def m-2 grid" style="grid-template-rows: 60px 350px auto;">
       <div class="text-4xl text-center text-[#3730A3] font-bold mt-3">
         Your match
@@ -76,16 +139,17 @@
     grid-template-columns: repeat(180, calc(100% / 180));
     grid-template-rows: repeat(100, calc(100% / 100));"
       >
+      
         <img
           class="pfp"
-          src="https://cdn.pixabay.com/photo/2018/10/23/10/29/cat-3767494_640.jpg"
+          src={usersData[match2id].pfp_url} 
           alt="pfp"
           style="min-width: 180px; min-height: 180px;"
         />
-        <div class="name">Cattingsohn Meowler</div>
+        <div class="name">{usersData[match2id].username}</div>
         <img
           class="banner"
-          src="https://www.ntounas.gr/wp-content/uploads/2021/02/Lonely_Tree_in_a_Lavender_Field_in_Greece.jpg  "
+          src={usersData[match2id].bg_url} 
         />
       </div>
 
@@ -93,21 +157,13 @@
         <div style="width: 80%; margin: auto;">
           <h1 class="text-xl font-bold m-4">About Me</h1>
           <p class="font-semibold m-5">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim atque
-            recusandae molestias odit error, adipisci maxime reprehenderit
-            eligendi delectus harum vero iste maiores corporis vel incidunt
-            provident animi facilis. Illum! Lorem ipsum dolor sit amet,
-            consectetur adipisicing elit. Enim atque recusandae molestias odit
-            error, adipisci maxime reprehenderit eligendi delectus harum vero
-            iste maiores corporis vel incidunt provident animi facilis. Illum!
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim atque
-            recusandae molestias odit error, adipisci maxime reprehenderit
-            eligendi delectus harum vero iste maiores corporis vel incidunt
-            provident animi facilis. Illum!
+           {usersData[match2id].description}
           </p>
         </div>
       </div>
     </div>
+  {/if}
+    
 
     <div
       class="right def min-h-[590px] h-[590px] m-2 grid text-2xl text-center text-[#3730A3] font-bold"
@@ -119,23 +175,28 @@
         style="grid-template-rows: 12px auto;"
       >
         <div class="text-xl text-left ml-5 mt-1">Liked</div>
+          <div class="mt-5">Coming soon!</div>
       </div>
       <div
         class="min-h-[150px] grid border-b-2"
         style="grid-template-rows: 12px auto;"
       >
-        <div class="text-xl text-left ml-5 mt-1">Disliked</div>
+        <div class="text-xl text-left ml-5 mt-1 ">Disliked</div>
+        <div class="mt-5">Coming soon!</div>
+        
       </div>
       <div class="grid" style="grid-template-rows: auto auto;">
         <button
           class="mx-3 mt-2 def"
           style="background-color: #3730A3; border-color: #3730A3; color: white;"
+          on:click={match}
         >
-          Reroll</button
+          Roll</button
         >
         <button
           class="mx-3 mt-2 mb-2 def"
           style="background-color: #3730A3; border-color: #3730A3; color: white;"
+          on:click={submitMatch}
         >
           Start Chat</button
         >

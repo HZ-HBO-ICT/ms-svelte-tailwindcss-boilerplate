@@ -1,27 +1,67 @@
-<script src="./app.js">
+<script>
     import { supabase } from "../../supabase";
-    import { userEmail,userData } from "../../stores.js";
-  import { browser } from "$app/environment";
-  import { onMount } from "svelte";
-  // @ts-ignore
-    console.log("Username - " +  $userData.username)
+    import { userEmail, userData, userMatch } from "../../stores.js";
+    import { browser } from "$app/environment";
+    import { onMount } from "svelte";
+    import { redirect } from "@sveltejs/kit";
+    let username;
     // @ts-ignore
-        let username = $userData.username;
-    console.log("User Email - " + $userEmail)
-    console.log($userData);
- 
-    async function signOut() {
-           
-        const { error } = await supabase.auth.signOut();
-        console.log("signed out")
-        console.log($userEmail)
-             $userEmail = "signed out";
-         $userData ={};
-         console.log($userEmail)
-    }
-   
-    
+    console.log("Username - " + $userData.username);
+    // @ts-ignore
 
+    let usersData;
+    userData;
+    console.log("User Email - " + $userEmail);
+    console.log("User Match - " + $userMatch);
+    console.log($userData);
+    async function getUsersData() {
+        if ($userMatch == undefined || $userMatch == "") {
+            if ($userData.username != undefined) {
+                console.log("LOG IN USERSDATA " + $userData.username);
+
+                await fetch(
+                    "http://localhost:3001/match/username/" + $userData.username
+                )
+                    .then((response) => response.json())
+                    .then((data) => (usersData = data[0]));
+                console.log(usersData);
+                if (usersData.user1 == $userData.username) {
+                    console.log("dog");
+
+                    userMatch.set(usersData.user2);
+                    alert("Match found! Your match is " + usersData.user2);
+                } else if (usersData.user2 == $userData.username) {
+                    userMatch.set(usersData.user1);
+                    alert("Match found! Your match is " + usersData.user1);
+                    console.log("dog 2");
+                }
+            }
+        }
+    }
+    onMount(async () => {
+        username = $userData.username;
+        if ($userData.username != undefined && $userData.username != "") {
+            try {
+                setTimeout(() => {
+                    
+                }, 1000);
+                console.log("doggie");
+                getUsersData();
+            } catch (error) {
+                console.error("Error fetching match:", error);
+            }
+        }
+    });
+
+    async function signOut() {
+        const { error } = await supabase.auth.signOut();
+        console.log("signed out");
+        userMatch.set("");
+        userEmail.set("signed out");
+        console.log($userEmail);
+        userData.set({ username: "" });
+        window.location.href = "/home";
+    }
 </script>
 
 <head>
@@ -44,32 +84,49 @@
                 >
                     <i class="fas fa-home" />
                 </a>
-                <a
-                    href="/chat"
-                    class="text-[#DFC2F2] text-2xl p-8 font-bold hover:text-white"
-                >
-                    <i class="fas fa-users" />
-                </a>
-                <a
-                    href="/activities"
-                    class="text-[#DFC2F2] text-2xl p-8 font-bold hover:text-white"
-                >
-                    <i class="fas fa-comments" />
-                </a>
-                <a
-                    href="/profilepage/{username}"
-                    class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
-                >
-                    <i class="fas fa-user" /></a
-                >
-                <!-- <i
+                {#if $userEmail != "signed out"}
+                    {#if $userMatch != ""}
+                        <a
+                            href="/chats"
+                            class="text-[#DFC2F2] text-2xl p-8 font-bold hover:text-white"
+                        >
+                            <i class="fas fa-comments" />
+                        </a>
+                    {/if}
+
+                    <a
+                        href="/journal"
+                        class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
+                    >
+                        <i class="fas fa-user" /></a
+                    >
+
+                    <a
+                        href="/challenges"
+                        class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
+                    >
+                        <i class="fas fa-user" /></a
+                    >
+
+                    <a
+                        href="/matchPage"
+                        class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
+                    >
+                        <i class="fas fa-user" /></a
+                    >
+
+                    <!-- <i
                     class="fa-solid fa-moon text-[#DFC2F2] text-2xl font-bold hover:text-white"
                 />
                 <i
                     class="fa-solid fa-sun text-[#DFC2F2] text-2xl font-bold hover:text-white"
                 /> -->
-                {#if $userEmail != "signed out"}
-                    <button on:click={signOut} class="def p-2 m-2">Log out</button>
+                    <button on:click={getUsersData} class="def p-2 m-2"
+                        >check for match</button
+                    >
+                    <button on:click={signOut} class="def p-2 m-2"
+                        >Log out</button
+                    >
                 {/if}
             </li>
         </ul>
@@ -78,15 +135,15 @@
 
 <style>
     .def {
-    --tw-bg-opacity: 1;
-    border-radius: 0.5rem /* 8px */;
-    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-    border-width: 2px;
-    --tw-drop-shadow: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
-    filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
-      var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
-      var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
-    --tw-shadow-color: rgb(59 130 246 / 0.2);
-    --tw-shadow: var(--tw-shadow-colored);
-  }
+        --tw-bg-opacity: 1;
+        border-radius: 0.5rem /* 8px */;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+        border-width: 2px;
+        --tw-drop-shadow: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+        filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+            var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
+            var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+        --tw-shadow-color: rgb(59 130 246 / 0.2);
+        --tw-shadow: var(--tw-shadow-colored);
+    }
 </style>

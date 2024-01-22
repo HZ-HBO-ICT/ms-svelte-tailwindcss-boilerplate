@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { createClient } from "@supabase/supabase-js";
-  import { userEmail, userToken, userData } from "../../stores.js";
+  import { userEmail, userToken, userData, userMatch } from "../../stores.js";
   import NavBar from "$lib/components/NavBar.svelte";
   import key from "../../key.js";
   import url from "../../url.js";
@@ -30,8 +30,10 @@
       });
       if (data) {
         userEmail.set(email);
+      
         userData.set({
           username: username,
+            // @ts-ignore
           email: email,
         });
       }
@@ -56,10 +58,12 @@
   }
   async function signOut() {
     const { error } = await supabase.auth.signOut();
+            userMatch.set("");
+
     console.log("signed out");
     console.log($userEmail);
-    $userEmail = "signed out";
-    $userData = {};
+    userEmail.set("signed out"); 
+    userData.set({ "username": ""});
     console.log($userEmail);
   }
 
@@ -81,13 +85,14 @@
         .then((response) => response.json())
         .then((data) => userData.set(data[0]));
       console.log($userData);
+      window.location.href = "/home";
     }
 
     // @ts-ignore
 
     console.log($userEmail);
   }
-
+  
   // Function to toggle between signup and login
   function toggleView() {
     showSignup = !showSignup;
