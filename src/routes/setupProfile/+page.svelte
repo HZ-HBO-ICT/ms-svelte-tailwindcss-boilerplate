@@ -6,8 +6,8 @@
     username: "",
     name: "",
     age: 0,
-    profilePage: "",
-    backgroundUrl: "",
+    pfp_url: "",
+    bg_url: "",
     pronouns: "",
     description: "",
   };
@@ -20,16 +20,16 @@
     if (formData.username != null) {
       if ((formData.name == "")) formData.name = "Not Specified";
       if ((formData.age == 0)) formData.age = 0;
-      if ((formData.profilePage == ""))
-        formData.profilePage =
+      if ((formData.pfp_url == ""))
+        formData.pfp_url =
           "https://th.bing.com/th/id/OIP.BpxTl9LFxEb3W_C3o31UogHaHa?rs=1&pid=ImgDetMain";
-      if ((formData.backgroundUrl == ""))
-        formData.backgroundUrl =
+      if ((formData.bg_url == ""))
+        formData.bg_url =
           "https://static.vecteezy.com/system/resources/previews/000/543/813/original/white-abstract-background-vector.jpg";
       if ((formData.pronouns == "")) formData.pronouns = "Not Specified";
       if ((formData.description == "")) formData.description = "Yet to be added";
 
-      fetch("http://localhost:3001/updateAcc", {
+      fetch("http://localhost:3001/acc/update", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -44,6 +44,7 @@
 
     //@ts-ignore
   }
+
 </script>
 
 <svelte:head>
@@ -92,7 +93,7 @@
         <input
           type="text"
           id="profilePage"
-          bind:value={formData.profilePage}
+          bind:value={formData.pfp_url}
           class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
         />
       </div>
@@ -103,7 +104,7 @@
         <input
           type="text"
           id="backgroundUrl"
-          bind:value={formData.backgroundUrl}
+          bind:value={formData.bg_url}
           class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
         />
       </div>
@@ -115,6 +116,16 @@
           bind:value={formData.pronouns}
           class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
         />
+      </div>
+      <div class="mb-4">
+        <label for="description" class="block text-gray-600">Description:</label>
+        <textarea
+        
+          id="description"
+          bind:value={formData.description}
+          class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+        />
+    
       </div>
 
       <!-- Additional fields for creating a new topic -->

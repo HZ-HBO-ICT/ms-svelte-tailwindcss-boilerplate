@@ -6,6 +6,7 @@
   import key from "../../key.js";
   import url from "../../url.js";
 
+
   const supabase = createClient(url(), key());
 
   let showSignup = true;
@@ -39,7 +40,7 @@
           username: username,
           email: email,
         };
-        fetch("http://localhost:3001/postAcc", {
+        fetch("http://localhost:3001/acc/post", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -50,6 +51,7 @@
         });
       }
       console.log(error);
+      window.location.href = "/setupProfile";
     } else console.log("passwords not matching");
   }
   async function signOut() {
@@ -75,7 +77,7 @@
       // @ts-ignore
       userEmail.set(data.user.email);
 
-      await fetch("http://localhost:3001/getAccEmail/" + email)
+      await fetch("http://localhost:3001/acc/email/" + email)
         .then((response) => response.json())
         .then((data) => userData.set(data[0]));
       console.log($userData);

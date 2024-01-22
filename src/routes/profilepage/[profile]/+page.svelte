@@ -1,6 +1,10 @@
 <script>
   import NavBar from "$lib/components/NavBar.svelte";
   import { page } from "$app/stores";
+  import { onMount } from "svelte";
+  
+  export let data;
+  console.log(data);
 </script>
 
 <svelte:head>
@@ -23,41 +27,39 @@
       >
         <!-- pfp stuff here -->
         <div class="h-full pfpContainer">
-          <img
-            class="pfp"
-            src="https://cdn.pixabay.com/photo/2018/10/23/10/29/cat-3767494_640.jpg"
-            alt="pfp"
-            style="min-width: 165px; min-height: 165px;"
-          />
+          <div class="pfpAndName">
+            <img
+              class="pfp bg-slate-100"
+              src={data.userData.pfp_url}
+              alt="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+              style="min-width: 165px; min-height: 165px;"
+            />
 
-          <div class="name">Cattingsohn Meowler</div>
+            <div class="name">
+              {#if data.userData.name != "Not Specified"}
+                {data.userData.name}
+              {:else}
+                {data.userData.username}
+              {/if}
+            </div>
+          </div>
           <div class="friends" />
           <div class="edit" />
           <img
             class="banner"
-            src="https://www.ntounas.gr/wp-content/uploads/2021/02/Lonely_Tree_in_a_Lavender_Field_in_Greece.jpg  "
+            src={data.userData.bg_url}
+            alt="https://img.freepik.com/premium-vector/modern-minimal-white-stripe-texture-background_105940-1925.jpg"
           />
         </div>
         <div
           class="font-bold text-xl h-full bg-white border-t-2"
-          style="display: grid; grid-template-columns: 1fr 1fr 2fr 1fr; text-align: center; width:95%; align-self: center; justify-self: center; align-items: center; vertical-align: middle;"
+          style="display: grid; grid-template-columns: 1fr ; text-align: center; width:95%; align-self: center; justify-self: center; align-items: center; vertical-align: middle;"
         >
           <a
             href="#"
-            class:active={$page.url.pathname == "/profilepage"}
             class="centerText flex items-center"
-            style=" vertical-align: middle;">Posts</a
-          >
-          <a
-            href="#"
-            class=" centerText h-full nav-el"
-            style=" vertical-align: middle;">Friends</a
-          >
-          <div class="h-full" />
-          <a
-            href="#"
-            class="centerText h-full nav-el"
-            style=" vertical-align: middle;">About Me</a
+            style=" vertical-align: middle; margin:auto;  height: 100%;
+    border-bottom: 4px solid #3730a3; padding-left: 15px; padding-right: 15px;">Description</a
           >
         </div>
       </div>
@@ -118,7 +120,7 @@
               Friends
             </h2>
             <div class="grid friends h-full">
-              {#each Array(5) as _, index (index)}
+              {#each Array(9) as _, index (index)}
                 <div class="friend grid">
                   <img
                     class="friendPfp"
@@ -145,7 +147,7 @@
               class=" w-[95%] h-32 bg-slate-100 self-center rounded-md border-2"
             />
             <button
-              class="w-[95%] h-10 font-bold text-white mt-3 bg-[#3730a3] border-2 rounded-md border-4 self-center"
+              class="w-[95%] h-10 font-bold text-white mt-3 bg-[#3730a3] rounded-md border-4 self-center"
               >Post</button
             >
           </div>
@@ -156,6 +158,18 @@
 </body>
 
 <style>
+  .pfpAndName {
+    grid-row: 64/80;
+    grid-column: 3 / 13;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+  }
+  .post-content {
+    margin: 30px;
+  }
   .friendName {
     font-size: 1.5rem;
     font-weight: bold;
@@ -180,12 +194,13 @@
     gap: 10px;
   }
   .name {
-    grid-row: 80;
-    grid-column: 34 / 100;
+    /* grid-row: 80;
+    grid-column: 34 / 100; */
     font-size: 2rem;
     font-weight: bold;
     color: #3730a3;
-
+    margin-left: 40px;
+    width: 600px;
     z-index: 1;
   }
   .banner {
@@ -197,8 +212,8 @@
     border-radius: 0px 0px 12px 12px;
   }
   .pfp {
-    grid-row: 64/80;
-    grid-column: 3 / 13;
+    /* grid-row: 64/80;
+    grid-column: 3 / 13; */
     border-radius: 50%;
     margin-left: 25%;
     border: 8px solid white;

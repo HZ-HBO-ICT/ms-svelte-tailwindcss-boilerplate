@@ -5,7 +5,8 @@
   import { onMount } from "svelte";
   // @ts-ignore
     console.log("Username - " +  $userData.username)
-    
+    // @ts-ignore
+        let username = $userData.username;
     console.log("User Email - " + $userEmail)
     console.log($userData);
  
@@ -56,7 +57,7 @@
                     <i class="fas fa-comments" />
                 </a>
                 <a
-                    href="/profilepage"
+                    href="/profilepage/{username}"
                     class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
                 >
                     <i class="fas fa-user" /></a
