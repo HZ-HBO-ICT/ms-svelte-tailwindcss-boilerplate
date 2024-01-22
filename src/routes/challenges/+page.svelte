@@ -6,7 +6,7 @@
   // API URLs and Variables
   const apiUrl = 'http://localhost:3001/challenges/';
   const completionApiUrl = 'http://localhost:3001/challenges/completeChallenge';
-  const checkCompletionApiUrl = 'http://localhost:3001/challenges/checkChallenge/:userId/:challengeId';
+  const checkCompletionApiUrl = 'http://localhost:3001/challenges/checkChallenge/';
   let apiChallengeData = [];
   let completedChallenges = {};
   let completedChallengesMatch = {};
