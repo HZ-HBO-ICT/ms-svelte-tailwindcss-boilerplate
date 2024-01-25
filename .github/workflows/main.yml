@@ -1,0 +1,34 @@
+name: Build and Check Application
+run-name: ${{ github.actor }} is building the application 🏗️
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+      - run: echo "Installing dependencies ⏬"
+      - run: npm ci
+      - run: echo "Building application 👷"
+      - run: npm run build
+      - run: echo "Building is complete ✅"
+      # Start the SvelteKit application
+      - name: Start SvelteKit App
+        run: npm run preview -- --port 3000 & # Starts the app in preview mode
+        # The & is important as it runs the server in the background, allowing the workflow to proceed to the next steps
+      # Health check
+      - name: Check if homepage is up
+        id: healthcheck
+        run: |
+          sleep 10 # Give some time for the server to start
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null "http://localhost:3000/home")
+          if [ "$response" -ne 200 ]; then
+            echo "::error::Homepage is not up. Response code: $response"
+            exit 1
+          fi
+      - name: Report status
+        if: ${{ steps.healthcheck.outcome == 'success' }}
+        run: echo "Homepage is up and running ✅"
