@@ -13,19 +13,18 @@ jobs:
       - run: echo "Installing dependencies ⏬"
       - run: npm ci
       - run: echo "Building application 👷"
-      - run: npm run build --if-present
+      - run: npm run build
       - run: echo "Building is complete ✅"
-      # Serve the application locally
-      - name: Serve Application
-        run: npx serve -s build &
-        # Replace 'npx serve -s build' with the command you use to serve your application locally
+      # Start the SvelteKit application
+      - name: Start SvelteKit App
+        run: npm run preview -- --port 3000 & # Starts the app in preview mode
+        # The & is important as it runs the server in the background, allowing the workflow to proceed to the next steps
       # Health check
       - name: Check if homepage is up
         id: healthcheck
         run: |
           sleep 10 # Give some time for the server to start
-          response=$(curl --write-out "%{http_code}" --silent --output /dev/null "http://localhost:5173")
-          # Replace 'http://localhost:5173' with the local URL your application is served on
+          response=$(curl --write-out "%{http_code}" --silent --output /dev/null "http://localhost:3000")
           if [ "$response" -ne 200 ]; then
             echo "::error::Homepage is not up. Response code: $response"
             exit 1
