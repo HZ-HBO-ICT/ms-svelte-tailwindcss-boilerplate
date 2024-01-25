@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 
+
 export function testConnection() {
 
     describe("The connection between the database -> microservice accounts -> server -> project works.", () => {
@@ -29,4 +30,5 @@ export function testConnection() {
             expect(response.status).toBe(200);
         });
     });
+    
 }
