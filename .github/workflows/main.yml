@@ -1,8 +1,8 @@
-name: Build and Check Application
-run-name: ${{ github.actor }} is building the application 🏗️
+name: Build, Test, and Check Application
+run-name: ${{ github.actor }} is building and testing the application 🏗️
 on: [push]
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,10 +15,16 @@ jobs:
       - run: echo "Building application 👷"
       - run: npm run build
       - run: echo "Building is complete ✅"
+      
+      # Run Vitest tests
+      - name: Run Vitest tests
+        run: npm run test # or 'npm run test:ci' if you have a specific script for CI environment
+      
       # Start the SvelteKit application
       - name: Start SvelteKit App
         run: npm run preview -- --port 3000 & # Starts the app in preview mode
         # The & is important as it runs the server in the background, allowing the workflow to proceed to the next steps
+      
       # Health check
       - name: Check if homepage is up
         id: healthcheck
