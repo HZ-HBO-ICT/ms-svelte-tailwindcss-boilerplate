@@ -3,6 +3,10 @@
     import { userEmail, userData, userMatch } from "../../stores.js";
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
+    import { goto } from "$app/navigation";
+    function redirectToProfile() {
+        goto(`/profilepage/${$userData.username}`);
+    }
     import { redirect } from "@sveltejs/kit";
     let username;
     // @ts-ignore
@@ -42,9 +46,7 @@
         username = $userData.username;
         if ($userData.username != undefined && $userData.username != "") {
             try {
-                setTimeout(() => {
-                    
-                }, 1000);
+                setTimeout(() => {}, 1000);
                 console.log("doggie");
                 getUsersData();
             } catch (error) {
@@ -90,7 +92,7 @@
                             href="/chats"
                             class="text-[#DFC2F2] text-2xl p-8 font-bold hover:text-white"
                         >
-                            <i class="fas fa-comments" />
+                            <i class="fas m-2 fa-comments" /> chat
                         </a>
                     {/if}
 
@@ -98,21 +100,27 @@
                         href="/journal"
                         class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
                     >
-                        <i class="fas fa-user" /></a
+                        <i class="fas m-2 fa-user" />journal  </a
                     >
 
                     <a
                         href="/challenges"
                         class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
                     >
-                        <i class="fas fa-user" /></a
+                        <i class="fas m-2 fa-user" />challenges  </a
                     >
 
                     <a
                         href="/matchPage"
                         class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
                     >
-                        <i class="fas fa-user" /></a
+                        <i class="fas m-2 fa-user" />match page</a
+                    >
+                      <a
+                        on:click={redirectToProfile}
+                        class="text-[#DFC2F2] text-2xl font-bold hover:text-white"
+                    >
+                        <i class="fas fa-user m-2" /> profile</a
                     >
 
                     <!-- <i
@@ -121,9 +129,9 @@
                 <i
                     class="fa-solid fa-sun text-[#DFC2F2] text-2xl font-bold hover:text-white"
                 /> -->
-                    <button on:click={getUsersData} class="def p-2 m-2"
+                    <!-- <button on:click={getUsersData} class="def p-2 m-2"
                         >check for match</button
-                    >
+                    > -->
                     <button on:click={signOut} class="def p-2 m-2"
                         >Log out</button
                     >

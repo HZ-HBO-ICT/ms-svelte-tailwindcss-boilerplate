@@ -66,8 +66,9 @@
     </div>
 
     <div class="bg-slate-100 z-0 min-h-screen">
-      <div class="ml-auto mr-auto w-[60%] grid bottomHalf">
-        <div class="leftSide grid-flow-row">
+      <div class="ml-auto mr-auto w-[60%] mt-3 " >
+        <div class="def w-full h-[450px] text-2xl m-2"><div class="m-10">{data.userData.description}</div></div>
+        <!-- <div class="leftSide grid-flow-row">
           <div
             class="mt-3 bg-white border-2 rounded-lg drop-shadow-sm shadow-blue-500/20 min-h-[300px]"
           >
@@ -77,9 +78,9 @@
               >
                 Activity Feed
               </h2>
-              <div class="col-span-4 mt-4">
+              <div class="col-span-4 mt-4"> -->
                 <!-- Activity feed content goes here -->
-                <div class="ml-9 mr-9 bg-white rounded">
+                <!-- <div class="ml-9 mr-9 bg-white rounded">
                   <div class="flex items-center mb-2">
                     <i class="fas fa-hiking text-[#3730A3] mr-2" />
                     <span class="text-[#3730A3] font-bold">Hiking:</span>
@@ -110,8 +111,8 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div
+          </div> -->
+          <!-- <div
             class="mt-3 bg-white border-2 rounded-lg drop-shadow-sm shadow-blue-500/20 h-auto"
           >
             <h2
@@ -133,8 +134,8 @@
               {/each}
             </div>
           </div>
-        </div>
-
+        </div> -->
+<!-- 
         <div class="rightSide">
           <div
             class="mt-3 bg-white border-2 rounded-lg drop-shadow-sm shadow-blue-500/20 h-[300px] flex flex-col"
@@ -151,7 +152,7 @@
               >Post</button
             >
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -239,4 +240,16 @@
     height: 100%;
     border-bottom: 4px solid #3730a3;
   }
+  .def {
+        --tw-bg-opacity: 1;
+        border-radius: 0.5rem /* 8px */;
+        background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+        border-width: 2px;
+        --tw-drop-shadow: drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+        filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
+            var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert)
+            var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+        --tw-shadow-color: rgb(59 130 246 / 0.2);
+        --tw-shadow: var(--tw-shadow-colored);
+    }
 </style>
